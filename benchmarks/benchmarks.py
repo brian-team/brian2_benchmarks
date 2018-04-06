@@ -172,7 +172,7 @@ FullExamples.param_names = ['target']
 
 
 class Microbenchmarks():
-    def setup(self, target):
+    def do_setup(self, target):  # TODO: asv's builtin "setup" mechanism did not always seem to work
         reinit_devices()
         if target in ['numpy', 'weave', 'cython']:
             prefs.codegen.target = target
@@ -180,11 +180,13 @@ class Microbenchmarks():
             set_device(target)
 
     def time_statemonitor(self, target):
+        self.do_setup(target)
         group = NeuronGroup(1000, 'v : 1')
         mon = StateMonitor(group, 'v', record=True)
         run(1*second)
 
     def peakmem_statemonitor(self, target):
+        self.do_setup(target)
         group = NeuronGroup(1000, 'v : 1')
         mon = StateMonitor(group, 'v', record=True)
         run(1*second)
