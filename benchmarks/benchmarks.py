@@ -48,7 +48,7 @@ class FullExamples:
 
         P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',
                         refractory=5 * ms,
-                        method='exact')
+                        method='linear')
         P.v = 'Vr + rand() * (Vt - Vr)'
         P.ge = 0 * mV
         P.gi = 0 * mV
@@ -149,7 +149,7 @@ class FullExamples:
 
         input = PoissonGroup(N, rates=F)
         neurons = NeuronGroup(1, eqs_neurons, threshold='v>vt', reset='v = vr',
-                              method='exact')
+                              method='linear')
         S = Synapses(input, neurons,
                      '''w : 1
                         dApre/dt = -Apre / taupre : 1 (event-driven)
