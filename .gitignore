@@ -1,0 +1,6 @@
+brian2/
+.asv/
+.idea/
+*.pyc
+__pycache__
+*~
