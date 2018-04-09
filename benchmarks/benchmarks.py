@@ -1,5 +1,25 @@
 from brian2.only import *
+from brian2.equations.equations import parse_string_equations
+from brian2.parsing.statements import parse_statement
+from brian2.parsing.sympytools import sympy_to_str
+try:
+    from brian2.parsing.sympytools import _str_to_sympy
+except ImportError:
+    pass
 from brian2.devices.device import reinit_devices
+
+
+def _clear_cache():
+    # Clear the internal cache
+    try:
+        make_statements._cache.clear()
+        parse_string_equations._cache.clear()
+        parse_statement._cache.clear()
+        _str_to_sympy._cache.clear()
+        sympy_to_str._cache.clear()
+        StateUpdateMethod.apply_stateupdater._cache.clear()
+    except (NameError, AttributeError):
+        pass
 
 
 class FullExamples:
@@ -9,6 +29,7 @@ class FullExamples:
             prefs.codegen.target = target
         else:
             set_device(target)
+        _clear_cache()
     
     def time_reliability_example(self, target):
         N = 25
@@ -178,6 +199,7 @@ class Microbenchmarks():
             prefs.codegen.target = target
         else:
             set_device(target)
+        _clear_cache()
 
     def time_statemonitor(self, target):
         self.do_setup(target)
