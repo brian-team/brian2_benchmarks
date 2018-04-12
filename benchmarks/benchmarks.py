@@ -1,4 +1,9 @@
+import os
+import shutil
+import timeit
+
 from brian2.only import *
+import brian2.numpy_ as np
 from brian2.equations.equations import parse_string_equations
 from brian2.parsing.statements import parse_statement
 from brian2.parsing.sympytools import sympy_to_str
@@ -6,7 +11,6 @@ try:
     from brian2.parsing.sympytools import _str_to_sympy
 except ImportError:
     pass
-from brian2.devices.device import reinit_devices
 
 
 def _clear_cache():
@@ -22,15 +26,32 @@ def _clear_cache():
         pass
 
 
+def codegen_setup(target):
+    if target in ['numpy', 'weave', 'cython']:
+        set_device('runtime')
+        prefs.codegen.target = target
+    else:
+        set_device(target)
+        device.reinit()
+        device.activate(directory=None)
+    _clear_cache()
+    # A bit of a brute-force approach to delete the disk cache
+    try:
+        if target == 'weave':
+            shutil.rmtree(os.path.expanduser(os.path.join('~', '.python27_compiled')))
+            shutil.rmtree(os.path.expanduser(os.path.join('~', '.python36_compiled')))
+            shutil.rmtree(os.path.expanduser(os.path.join('~', '.cache', 'scipy', 'python27_compiled')))
+            shutil.rmtree(os.path.expanduser(os.path.join('~', '.cache', 'scipy', 'python36_compiled')))
+        elif target == 'cython':
+            shutil.rmtree(os.path.expanduser(os.path.join('~', '.cython', 'brian_extensions')))
+    except OSError:
+        pass
+
+
 class FullExamples:
     def setup(self, target):
-        reinit_devices()
-        if target in ['numpy', 'weave', 'cython']:
-            prefs.codegen.target = target
-        else:
-            set_device(target)
-        _clear_cache()
-    
+        codegen_setup(target)
+
     def time_reliability_example(self, target):
         N = 25
         tau_input = 5 * ms
@@ -71,8 +92,6 @@ class FullExamples:
                         refractory=5 * ms,
                         method='linear')
         P.v = 'Vr + rand() * (Vt - Vr)'
-        P.ge = 0 * mV
-        P.gi = 0 * mV
 
         we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)
         wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight
@@ -190,28 +209,125 @@ class FullExamples:
 
 FullExamples.params = ['numpy', 'cython', 'cpp_standalone']
 FullExamples.param_names = ['target']
+FullExamples.number = 1
+FullExamples.timer = timeit.default_timer
+FullExamples.timeout = 300
 
 
 class Microbenchmarks():
-    def do_setup(self, target):  # TODO: asv's builtin "setup" mechanism did not always seem to work
-        reinit_devices()
-        if target in ['numpy', 'weave', 'cython']:
-            prefs.codegen.target = target
-        else:
-            set_device(target)
-        _clear_cache()
+    def setup(self, target):
+        codegen_setup(target)
 
     def time_statemonitor(self, target):
-        self.do_setup(target)
         group = NeuronGroup(1000, 'v : 1')
         mon = StateMonitor(group, 'v', record=True)
         run(1*second)
 
     def peakmem_statemonitor(self, target):
-        self.do_setup(target)
         group = NeuronGroup(1000, 'v : 1')
         mon = StateMonitor(group, 'v', record=True)
         run(1*second)
 
 Microbenchmarks.params = ['numpy', 'cython', 'cpp_standalone']
 Microbenchmarks.param_names = ['target']
+Microbenchmarks.number = 1
+Microbenchmarks.timer = timeit.default_timer
+
+
+class RuntimeBenchmarks():
+
+    def time_repeated_run(self, target):
+        taum = 20 * ms
+        taue = 5 * ms
+        taui = 10 * ms
+        Vt = -50 * mV
+        Vr = -60 * mV
+        El = -49 * mV
+        for _ in range(10):
+            eqs = '''
+                    dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)
+                    dge/dt = -ge/taue : volt
+                    dgi/dt = -gi/taui : volt
+                    '''
+            P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',
+                            refractory=5 * ms, method='linear')
+            P.v = 'Vr + rand() * (Vt - Vr)'
+
+            we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)
+            wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight
+            Ce = Synapses(P, P, on_pre='ge += we')
+            Ci = Synapses(P, P, on_pre='gi += wi')
+            Ce.connect('i<3200', p=0.02)
+            Ci.connect('i>=3200', p=0.02)
+            spikes = SpikeMonitor(P)
+            run(1*second)
+
+    def peakmem_repeated_run(self, target):
+        taum = 20 * ms
+        taue = 5 * ms
+        taui = 10 * ms
+        Vt = -50 * mV
+        Vr = -60 * mV
+        El = -49 * mV
+        for _ in range(10):
+            eqs = '''
+                    dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)
+                    dge/dt = -ge/taue : volt
+                    dgi/dt = -gi/taui : volt
+                    '''
+            P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',
+                            refractory=5 * ms, method='linear')
+            P.v = 'Vr + rand() * (Vt - Vr)'
+
+            we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)
+            wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight
+            Ce = Synapses(P, P, on_pre='ge += we')
+            Ci = Synapses(P, P, on_pre='gi += wi')
+            Ce.connect('i<3200', p=0.02)
+            Ci.connect('i>=3200', p=0.02)
+            spikes = SpikeMonitor(P)
+            run(1 * second)
+
+    def time_repeated_run_store_restore(self, target):
+        taum = 20 * ms
+        taue = 5 * ms
+        taui = 10 * ms
+        Vt = -50 * mV
+        Vr = -60 * mV
+        El = -49 * mV
+        eqs = '''
+                dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)
+                dge/dt = -ge/taue : volt
+                dgi/dt = -gi/taui : volt
+              '''
+        P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',
+                        refractory=5 * ms, method='linear')
+        P.v = 'Vr + rand() * (Vt - Vr)'
+
+        we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)
+        wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight
+        Ce = Synapses(P, P, on_pre='ge += we')
+        Ci = Synapses(P, P, on_pre='gi += wi')
+        spikes = SpikeMonitor(P)
+        store()
+        for _ in range(10):
+            restore()
+            Ce.connect('i<3200', p=0.02)
+            Ci.connect('i>=3200', p=0.02)
+            run(1*second)
+
+RuntimeBenchmarks.params = ['numpy', 'cython']
+RuntimeBenchmarks.param_names = ['target']
+RuntimeBenchmarks.timeout = 300
+
+
+class UnitBenchmarks():
+    def setup(self):
+        self.ar = np.random.randn(1000000)
+        self.ar_with_units = self.ar * mV
+
+    def time_calculations_with_units(self):
+        rmse = np.sqrt(np.mean(self.ar_with_units**2))
+
+    def time_units_to_string(self):
+        str(self.ar_with_units)
