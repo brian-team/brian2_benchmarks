@@ -1,0 +1,68 @@
+{
+    "commit_hash": "97b1b5101b1240dcc15eb3bb0cd43687fc3908d7", 
+    "date": 1478768388000, 
+    "ended_at": {
+        "benchmarks.RuntimeBenchmarks.peakmem_repeated_run": 1523565281000, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run": 1523565409000, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1523565501000
+    }, 
+    "env_name": "conda-py3.6-cython", 
+    "params": {
+        "arch": "x86_64", 
+        "cpu": "Intel(R) Xeon(R) CPU E5-1630 v3 @ 3.70GHz", 
+        "cython": "", 
+        "machine": "vuvuzela", 
+        "os": "Linux 4.4.0-119-generic", 
+        "python": "3.6", 
+        "ram": "16354876"
+    }, 
+    "profiles": {}, 
+    "python": "3.6", 
+    "requirements": {
+        "cython": ""
+    }, 
+    "results": {
+        "benchmarks.RuntimeBenchmarks.peakmem_repeated_run": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'"
+                ]
+            ], 
+            "result": [
+                157302784, 
+                156442624
+            ]
+        }, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'"
+                ]
+            ], 
+            "result": [
+                36.121127283999996, 
+                37.901673759
+            ]
+        }, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'"
+                ]
+            ], 
+            "result": [
+                31.710644039, 
+                32.415614596
+            ]
+        }
+    }, 
+    "started_at": {
+        "benchmarks.RuntimeBenchmarks.peakmem_repeated_run": 1523565154000, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run": 1523565281000, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1523565409000
+    }, 
+    "version": 1
+}

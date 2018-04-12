@@ -1,0 +1,8 @@
+{
+    "arch": "x86_64", 
+    "cpu": "Intel(R) Xeon(R) CPU E5-1630 v3 @ 3.70GHz", 
+    "machine": "vuvuzela", 
+    "os": "Linux 4.4.0-119-generic", 
+    "ram": "16354876", 
+    "version": 1
+}
