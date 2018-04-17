@@ -24,7 +24,7 @@ the Brian 2 simulator:
   explicitly (e.g. to `timeit.default_timer`), because the default timer used by
   `asv` only measures the time in the main process. Since the actual standalone
   simulation is run in a subprocess, the time spent during the actual simulation
-  would not be counted!  
+  would not be counted!
 
 
 ## Running benchmarks
@@ -43,3 +43,16 @@ for the `2.1.2` release:
 ```console
 $ asv run 2.1.2^!
 ```
+
+## Updating benchmarks on github page
+Run the `asv` command to push to the `gh-pages` branch:
+```console
+$ asv gh-pages
+```
+This will currently not work directly because it tries to overwrite the
+`gh-pages` branch with the new results. You'll therefore additionally have to
+force-push:
+```console
+$ git push --force origin gh-pages
+```
+
