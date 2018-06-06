@@ -1,0 +1,29 @@
+{
+    "commit_hash": "95866fa281b0e8697a55a49bd30fc8bc1b57a1ea", 
+    "date": 1486576359000, 
+    "ended_at": {
+        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 1528275325000
+    }, 
+    "env_name": "conda-py2.7-cython", 
+    "params": {
+        "arch": "x86_64", 
+        "cpu": "Intel(R) Xeon(R) CPU E5-1630 v3 @ 3.70GHz", 
+        "cython": "", 
+        "machine": "vuvuzela", 
+        "os": "Linux 4.4.0-119-generic", 
+        "python": "2.7", 
+        "ram": "16354876"
+    }, 
+    "profiles": {}, 
+    "python": "2.7", 
+    "requirements": {
+        "cython": ""
+    }, 
+    "results": {
+        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 0.744332649
+    }, 
+    "started_at": {
+        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 1528275322000
+    }, 
+    "version": 1
+}

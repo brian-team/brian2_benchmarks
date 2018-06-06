@@ -331,3 +331,6 @@ class UnitBenchmarks():
 
     def time_units_to_string(self):
         str(self.ar_with_units)
+
+    def time_unit_removal_by_division(self):
+        no_units = self.ar_with_units / mV

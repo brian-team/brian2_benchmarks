@@ -15,6 +15,7 @@
         "benchmarks.RuntimeBenchmarks.time_repeated_run": 1523561967000, 
         "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1523562058000, 
         "benchmarks.UnitBenchmarks.time_calculations_with_units": 1523473579000, 
+        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 1528275207000, 
         "benchmarks.UnitBenchmarks.time_units_to_string": 1523473583000
     }, 
     "env_name": "conda-py3.6-cython", 
@@ -196,6 +197,7 @@
             ]
         }, 
         "benchmarks.UnitBenchmarks.time_calculations_with_units": 0.0016081148110000001, 
+        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 0.0019357708350000004, 
         "benchmarks.UnitBenchmarks.time_units_to_string": 0.6742783459999999
     }, 
     "started_at": {
@@ -212,6 +214,7 @@
         "benchmarks.RuntimeBenchmarks.time_repeated_run": 1523561840000, 
         "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1523561967000, 
         "benchmarks.UnitBenchmarks.time_calculations_with_units": 1523473572000, 
+        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 1528275198000, 
         "benchmarks.UnitBenchmarks.time_units_to_string": 1523473579000
     }, 
     "version": 1

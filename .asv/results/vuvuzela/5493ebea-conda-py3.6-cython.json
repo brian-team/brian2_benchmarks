@@ -1,0 +1,170 @@
+{
+    "commit_hash": "5493ebeacb34a5d74da0a13d253c338229cab40e", 
+    "date": 1527253480000, 
+    "ended_at": {
+        "benchmarks.FullExamples.time_COBAHH_example": 1527264420000, 
+        "benchmarks.FullExamples.time_CUBA_example": 1527264486000, 
+        "benchmarks.FullExamples.time_STDP_example": 1527264620000, 
+        "benchmarks.FullExamples.time_reliability_example": 1527264640000, 
+        "benchmarks.Microbenchmarks.peakmem_statemonitor": 1527264647000, 
+        "benchmarks.Microbenchmarks.time_statemonitor": 1527264657000, 
+        "benchmarks.RuntimeBenchmarks.peakmem_repeated_run": 1527264743000, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run": 1527264788000, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1527264816000, 
+        "benchmarks.UnitBenchmarks.time_calculations_with_units": 1527264824000, 
+        "benchmarks.UnitBenchmarks.time_units_to_string": 1527264828000
+    }, 
+    "env_name": "conda-py3.6-cython", 
+    "params": {
+        "arch": "x86_64", 
+        "cpu": "Intel(R) Xeon(R) CPU E5-1630 v3 @ 3.70GHz", 
+        "cython": "", 
+        "machine": "vuvuzela", 
+        "os": "Linux 4.4.0-119-generic", 
+        "python": "3.6", 
+        "ram": "16354876"
+    }, 
+    "profiles": {}, 
+    "python": "3.6", 
+    "requirements": {
+        "cython": ""
+    }, 
+    "results": {
+        "benchmarks.FullExamples.time_COBAHH_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                43.45381699799327, 
+                11.382834087999072, 
+                9.09114727601991
+            ]
+        }, 
+        "benchmarks.FullExamples.time_CUBA_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                4.044703799998388, 
+                2.52905589499278, 
+                3.2577072820276953
+            ]
+        }, 
+        "benchmarks.FullExamples.time_STDP_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                19.131185956997797, 
+                10.405268156988313, 
+                3.818367894011317
+            ]
+        }, 
+        "benchmarks.FullExamples.time_reliability_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                0.6560523520165589, 
+                0.35806801900616847, 
+                0.5149969139893074
+            ]
+        }, 
+        "benchmarks.Microbenchmarks.peakmem_statemonitor": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                206917632, 
+                228679680, 
+                76660736
+            ]
+        }, 
+        "benchmarks.Microbenchmarks.time_statemonitor": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                0.3377550320001319, 
+                0.2422894699848257, 
+                0.33862274000421166
+            ]
+        }, 
+        "benchmarks.RuntimeBenchmarks.peakmem_repeated_run": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'"
+                ]
+            ], 
+            "result": [
+                157548544, 
+                151552000
+            ]
+        }, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'"
+                ]
+            ], 
+            "result": [
+                13.494785457999999, 
+                15.645783779000002
+            ]
+        }, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'"
+                ]
+            ], 
+            "result": [
+                11.346954548, 
+                11.406871436
+            ]
+        }, 
+        "benchmarks.UnitBenchmarks.time_calculations_with_units": 0.001657011631, 
+        "benchmarks.UnitBenchmarks.time_units_to_string": 0.699139969
+    }, 
+    "started_at": {
+        "benchmarks.FullExamples.time_COBAHH_example": 1527264197000, 
+        "benchmarks.FullExamples.time_CUBA_example": 1527264420000, 
+        "benchmarks.FullExamples.time_STDP_example": 1527264486000, 
+        "benchmarks.FullExamples.time_reliability_example": 1527264620000, 
+        "benchmarks.Microbenchmarks.peakmem_statemonitor": 1527264640000, 
+        "benchmarks.Microbenchmarks.time_statemonitor": 1527264647000, 
+        "benchmarks.RuntimeBenchmarks.peakmem_repeated_run": 1527264657000, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run": 1527264743000, 
+        "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1527264788000, 
+        "benchmarks.UnitBenchmarks.time_calculations_with_units": 1527264816000, 
+        "benchmarks.UnitBenchmarks.time_units_to_string": 1527264824000
+    }, 
+    "version": 1
+}

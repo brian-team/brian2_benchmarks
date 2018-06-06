@@ -192,6 +192,19 @@
         "type": "time", 
         "unit": "seconds"
     }, 
+    "benchmarks.UnitBenchmarks.time_unit_removal_by_division": {
+        "code": "def time_unit_removal_by_division(self):\n    no_units = self.ar_with_units / mV\n", 
+        "goal_time": 2.0, 
+        "name": "benchmarks.UnitBenchmarks.time_unit_removal_by_division", 
+        "number": 0, 
+        "param_names": [], 
+        "params": [], 
+        "pretty_name": "benchmarks.UnitBenchmarks.time_unit_removal_by_division", 
+        "repeat": 0, 
+        "timeout": 60.0, 
+        "type": "time", 
+        "unit": "seconds"
+    }, 
     "benchmarks.UnitBenchmarks.time_units_to_string": {
         "code": "def time_units_to_string(self):\n    str(self.ar_with_units)\n", 
         "goal_time": 2.0, 
