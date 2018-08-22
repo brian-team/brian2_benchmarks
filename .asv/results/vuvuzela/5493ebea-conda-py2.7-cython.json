@@ -11,6 +11,9 @@
         "benchmarks.RuntimeBenchmarks.peakmem_repeated_run": 1527264114000, 
         "benchmarks.RuntimeBenchmarks.time_repeated_run": 1527264142000, 
         "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1527264164000, 
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535029857000, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535029933000, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535030003000, 
         "benchmarks.UnitBenchmarks.time_calculations_with_units": 1527264170000, 
         "benchmarks.UnitBenchmarks.time_units_to_string": 1527264174000
     }, 
@@ -150,6 +153,48 @@
                 10.041699144
             ]
         }, 
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                43.30242300033569, 
+                10.364959001541138, 
+                7.38549
+            ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                1.8931550979614258, 
+                0.637984037399292, 
+                0.129485
+            ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                1.6282241344451904, 
+                0.8414559364318848, 
+                0.135674
+            ]
+        }, 
         "benchmarks.UnitBenchmarks.time_calculations_with_units": 0.001632601252, 
         "benchmarks.UnitBenchmarks.time_units_to_string": 0.7511127869999998
     }, 
@@ -163,6 +208,9 @@
         "benchmarks.RuntimeBenchmarks.peakmem_repeated_run": 1527264040000, 
         "benchmarks.RuntimeBenchmarks.time_repeated_run": 1527264114000, 
         "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1527264142000, 
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535029625000, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535029857000, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535029933000, 
         "benchmarks.UnitBenchmarks.time_calculations_with_units": 1527264164000, 
         "benchmarks.UnitBenchmarks.time_units_to_string": 1527264170000
     }, 

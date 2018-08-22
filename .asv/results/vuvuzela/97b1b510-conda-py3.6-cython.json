@@ -4,7 +4,10 @@
     "ended_at": {
         "benchmarks.RuntimeBenchmarks.peakmem_repeated_run": 1523565281000, 
         "benchmarks.RuntimeBenchmarks.time_repeated_run": 1523565409000, 
-        "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1523565501000
+        "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1523565501000, 
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535068994000, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535069084000, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535069171000
     }, 
     "env_name": "conda-py3.6-cython", 
     "params": {
@@ -57,12 +60,57 @@
                 31.710644039, 
                 32.415614596
             ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                42.87263488769531, 
+                10.502325296401978, 
+                7.1752
+            ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                2.412280797958374, 
+                1.0682415962219238, 
+                0.197595
+            ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                2.2824151515960693, 
+                1.2656841278076172, 
+                0.222971
+            ]
         }
     }, 
     "started_at": {
         "benchmarks.RuntimeBenchmarks.peakmem_repeated_run": 1523565154000, 
         "benchmarks.RuntimeBenchmarks.time_repeated_run": 1523565281000, 
-        "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1523565409000
+        "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": 1523565409000, 
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535068750000, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535068994000, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535069084000
     }, 
     "version": 1
 }

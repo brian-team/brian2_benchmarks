@@ -1,0 +1,90 @@
+{
+    "commit_hash": "76933f91a147413f9b129c30d2b836fe6cce5da8", 
+    "date": 1534853981000, 
+    "ended_at": {
+        "benchmarks.FullExamples.time_CUBA_example": 1534950231000, 
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535047946000, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535048024000, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535048094000
+    }, 
+    "env_name": "conda-py2.7-cython", 
+    "params": {
+        "arch": "x86_64", 
+        "cpu": "Intel(R) Xeon(R) CPU E5-1630 v3 @ 3.70GHz", 
+        "cython": "", 
+        "machine": "vuvuzela", 
+        "os": "Linux 4.4.0-119-generic", 
+        "python": "2.7", 
+        "ram": "16354876"
+    }, 
+    "profiles": {}, 
+    "python": "2.7", 
+    "requirements": {
+        "cython": ""
+    }, 
+    "results": {
+        "benchmarks.FullExamples.time_CUBA_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                2.7413840293884277, 
+                0.9549050331115723, 
+                1.7666549682617188
+            ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                43.482949018478394, 
+                10.337957859039307, 
+                7.40623
+            ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                2.499202013015747, 
+                0.8700029850006104, 
+                0.209493
+            ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                1.6175479888916016, 
+                0.8218569755554199, 
+                0.134213
+            ]
+        }
+    }, 
+    "started_at": {
+        "benchmarks.FullExamples.time_CUBA_example": 1534950165000, 
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535047715000, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535047946000, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535048024000
+    }, 
+    "version": 1
+}

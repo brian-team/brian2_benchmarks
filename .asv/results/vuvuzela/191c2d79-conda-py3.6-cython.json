@@ -2,6 +2,9 @@
     "commit_hash": "191c2d7970df8be676b312463c970e2d22e93f7b", 
     "date": 1484066446000, 
     "ended_at": {
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535022376000, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535022455000, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535022526000, 
         "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 1528275464000
     }, 
     "env_name": "conda-py3.6-cython", 
@@ -20,9 +23,54 @@
         "cython": ""
     }, 
     "results": {
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                42.74130463600159, 
+                10.579833745956421, 
+                7.12664
+            ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                2.3994574546813965, 
+                1.0708558559417725, 
+                0.191963
+            ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                2.243633270263672, 
+                1.3640100955963135, 
+                0.206024
+            ]
+        }, 
         "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 0.0019426299060000005
     }, 
     "started_at": {
+        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535022148000, 
+        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535022376000, 
+        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535022455000, 
         "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 1528275455000
     }, 
     "version": 1
