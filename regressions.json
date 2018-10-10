@@ -1,0 +1,44 @@
+{
+    "regressions": [
+        [
+            "benchmarks.RuntimeOnlyExamples.track_CUBA_example('numpy')", 
+            "graphs/arch-x86_64/branch-master/cpu-Intel(R) Xeon(R) CPU E5-1630 v3 @ 3.70GHz/cython/machine-vuvuzela/os-Linux 4.4.0-119-generic/python-2.7/ram-16354876/benchmarks.RuntimeOnlyExamples.track_CUBA_example.json", 
+            {
+                "python": "2.7"
+            }, 
+            0, 
+            [
+                [
+                    [
+                        4813, 
+                        4839, 
+                        1.8844693899154663, 
+                        3.8803040981292725
+                    ]
+                ], 
+                2.4664725065231323, 
+                1.8844693899154663
+            ]
+        ], 
+        [
+            "benchmarks.RuntimeOnlyExamples.track_STDP_example('numpy')", 
+            "graphs/arch-x86_64/branch-master/cpu-Intel(R) Xeon(R) CPU E5-1630 v3 @ 3.70GHz/cython/machine-vuvuzela/os-Linux 4.4.0-119-generic/python-2.7/ram-16354876/benchmarks.RuntimeOnlyExamples.track_STDP_example.json", 
+            {
+                "python": "2.7"
+            }, 
+            0, 
+            [
+                [
+                    [
+                        null, 
+                        4973, 
+                        1.6466785669326782, 
+                        1.9422730207443237
+                    ]
+                ], 
+                1.9422730207443237, 
+                1.6466785669326782
+            ]
+        ]
+    ]
+}
