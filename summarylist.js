@@ -241,7 +241,12 @@ $(document).ready(function() {
             });
             benchmark_base_url = $.asv.format_hash_string(benchmark_url_args);
             if (row.idx !== null) {
-                benchmark_url_args.params.idx = [row.idx];
+                var benchmark = $.asv.master_json.benchmarks[row.name];
+                $.each($.asv.param_selection_from_flat_idx(benchmark.params, row.idx).slice(1),
+                       function(i, param_values) {
+                           benchmark_url_args.params['p-'+benchmark.param_names[i]]
+                               = [benchmark.params[i][param_values[0]]];
+                       });
             }
             benchmark_full_url = $.asv.format_hash_string(benchmark_url_args);
 
@@ -276,12 +281,12 @@ $(document).ready(function() {
             var value_td = $('<td class="value"/>');
             if (row.last_value !== null) {
                 var value, err, err_str, sort_value;
-                if ($.asv.master_json.benchmarks[row.name].unit == "seconds") {
-                    value = $.asv.pretty_second(row.last_value);
+                var unit = $.asv.master_json.benchmarks[row.name].unit;
+                value = $.asv.pretty_unit(row.last_value, unit);
+                if (unit == "seconds") {
                     sort_value = row.last_value * 1e100;
                 }
                 else {
-                    value = row.last_value.toPrecision(3);
                     sort_value = row.last_value;
                 }
                 var value_span = $('<span/>').text(value);
@@ -306,12 +311,8 @@ $(document).ready(function() {
             var change_td = $('<td class="change"/>');
             if (row.prev_value !== null) {
                 var text, change_str, change = 0, sort_value = 0;
-                if ($.asv.master_json.benchmarks[row.name].unit == "seconds") {
-                    change_str = $.asv.pretty_second(row.last_value - row.prev_value);
-                }
-                else {
-                    change_str = '' + (row.last_value - row.prev_value).toPrecision(3);
-                }
+                var unit = $.asv.master_json.benchmarks[row.name].unit;
+                change_str = $.asv.pretty_unit(row.last_value - row.prev_value, unit);
                 if (!change_str.match(/^-/)) {
                     change_str = '+' + change_str;
                 }
