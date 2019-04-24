@@ -1,7 +1,7 @@
 {
     "benchmarks.FullExamples.time_COBAHH_example": {
-        "code": "def time_COBAHH_example(self, target):\n    # Parameters\n    area = 20000 * umetre ** 2\n    Cm = (1 * ufarad * cm ** -2) * area\n    gl = (5e-5 * siemens * cm ** -2) * area\n\n    El = -60 * mV\n    EK = -90 * mV\n    ENa = 50 * mV\n    g_na = (100 * msiemens * cm ** -2) * area\n    g_kd = (30 * msiemens * cm ** -2) * area\n    VT = -63 * mV\n    # Time constants\n    taue = 5 * ms\n    taui = 10 * ms\n    # Reversal potentials\n    Ee = 0 * mV\n    Ei = -80 * mV\n    we = 6 * nS  # excitatory synaptic weight\n    wi = 67 * nS  # inhibitory synaptic weight\n\n    # The model\n    eqs = Equations('''\n    dv/dt = (gl*(El-v)+ge*(Ee-v)+gi*(Ei-v)-\n             g_na*(m*m*m)*h*(v-ENa)-\n             g_kd*(n*n*n*n)*(v-EK))/Cm : volt\n    dm/dt = alpha_m*(1-m)-beta_m*m : 1\n    dn/dt = alpha_n*(1-n)-beta_n*n : 1\n    dh/dt = alpha_h*(1-h)-beta_h*h : 1\n    dge/dt = -ge*(1./taue) : siemens\n    dgi/dt = -gi*(1./taui) : siemens\n    alpha_m = 0.32*(mV**-1)*(13*mV-v+VT)/\n             (exp((13*mV-v+VT)/(4*mV))-1.)/ms : Hz\n    beta_m = 0.28*(mV**-1)*(v-VT-40*mV)/\n            (exp((v-VT-40*mV)/(5*mV))-1)/ms : Hz\n    alpha_h = 0.128*exp((17*mV-v+VT)/(18*mV))/ms : Hz\n    beta_h = 4./(1+exp((40*mV-v+VT)/(5*mV)))/ms : Hz\n    alpha_n = 0.032*(mV**-1)*(15*mV-v+VT)/\n             (exp((15*mV-v+VT)/(5*mV))-1.)/ms : Hz\n    beta_n = .5*exp((10*mV-v+VT)/(40*mV))/ms : Hz\n    ''')\n\n    P = NeuronGroup(4000, model=eqs, threshold='v>-20*mV',\n                    refractory=3 * ms,\n                    method='exponential_euler')\n    Pe = P[:3200]\n    Pi = P[3200:]\n    Ce = Synapses(Pe, P, on_pre='ge+=we')\n    Ci = Synapses(Pi, P, on_pre='gi+=wi')\n    Ce.connect(p=0.02)\n    Ci.connect(p=0.02)\n\n    # Initialization\n    P.v = 'El + (randn() * 5 - 5)*mV'\n    P.ge = '(randn() * 1.5 + 4) * 10.*nS'\n    P.gi = '(randn() * 12 + 20) * 10.*nS'\n\n    # Record a few traces\n    trace = StateMonitor(P, 'v', record=[1, 10, 100])\n    run(1 * second, report='text')\n", 
-        "goal_time": 2.0, 
+        "code": "class FullExamples:\n    def time_COBAHH_example(self, target):\n        # Parameters\n        area = 20000 * umetre ** 2\n        Cm = (1 * ufarad * cm ** -2) * area\n        gl = (5e-5 * siemens * cm ** -2) * area\n    \n        El = -60 * mV\n        EK = -90 * mV\n        ENa = 50 * mV\n        g_na = (100 * msiemens * cm ** -2) * area\n        g_kd = (30 * msiemens * cm ** -2) * area\n        VT = -63 * mV\n        # Time constants\n        taue = 5 * ms\n        taui = 10 * ms\n        # Reversal potentials\n        Ee = 0 * mV\n        Ei = -80 * mV\n        we = 6 * nS  # excitatory synaptic weight\n        wi = 67 * nS  # inhibitory synaptic weight\n    \n        # The model\n        eqs = Equations('''\n        dv/dt = (gl*(El-v)+ge*(Ee-v)+gi*(Ei-v)-\n                 g_na*(m*m*m)*h*(v-ENa)-\n                 g_kd*(n*n*n*n)*(v-EK))/Cm : volt\n        dm/dt = alpha_m*(1-m)-beta_m*m : 1\n        dn/dt = alpha_n*(1-n)-beta_n*n : 1\n        dh/dt = alpha_h*(1-h)-beta_h*h : 1\n        dge/dt = -ge*(1./taue) : siemens\n        dgi/dt = -gi*(1./taui) : siemens\n        alpha_m = 0.32*(mV**-1)*(13*mV-v+VT)/\n                 (exp((13*mV-v+VT)/(4*mV))-1.)/ms : Hz\n        beta_m = 0.28*(mV**-1)*(v-VT-40*mV)/\n                (exp((v-VT-40*mV)/(5*mV))-1)/ms : Hz\n        alpha_h = 0.128*exp((17*mV-v+VT)/(18*mV))/ms : Hz\n        beta_h = 4./(1+exp((40*mV-v+VT)/(5*mV)))/ms : Hz\n        alpha_n = 0.032*(mV**-1)*(15*mV-v+VT)/\n                 (exp((15*mV-v+VT)/(5*mV))-1.)/ms : Hz\n        beta_n = .5*exp((10*mV-v+VT)/(40*mV))/ms : Hz\n        ''')\n    \n        P = NeuronGroup(4000, model=eqs, threshold='v>-20*mV',\n                        refractory=3 * ms,\n                        method='exponential_euler')\n        Pe = P[:3200]\n        Pi = P[3200:]\n        Ce = Synapses(Pe, P, on_pre='ge+=we')\n        Ci = Synapses(Pi, P, on_pre='gi+=wi')\n        Ce.connect(p=0.02)\n        Ci.connect(p=0.02)\n    \n        # Initialization\n        P.v = 'El + (randn() * 5 - 5)*mV'\n        P.ge = '(randn() * 1.5 + 4) * 10.*nS'\n        P.gi = '(randn() * 12 + 20) * 10.*nS'\n    \n        # Record a few traces\n        trace = StateMonitor(P, 'v', record=[1, 10, 100])\n        run(1 * second, report='text')\n\n    def setup(self, target):\n        codegen_setup(target)", 
+        "min_run_count": 2, 
         "name": "benchmarks.FullExamples.time_COBAHH_example", 
         "number": 1, 
         "param_names": [
@@ -15,14 +15,18 @@
             ]
         ], 
         "pretty_name": "COBAHH (compilation+runtime)", 
+        "processes": 2, 
         "repeat": 0, 
+        "sample_time": 0.01, 
         "timeout": 300, 
         "type": "time", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "ca4efaa9103c97fc2b50603267f79783fa194d470229a8c10c95e72775db8762", 
+        "warmup_time": -1
     }, 
     "benchmarks.FullExamples.time_CUBA_example": {
-        "code": "def time_CUBA_example(self, target):\n    taum = 20 * ms\n    taue = 5 * ms\n    taui = 10 * ms\n    Vt = -50 * mV\n    Vr = -60 * mV\n    El = -49 * mV\n\n    eqs = '''\n    dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)\n    dge/dt = -ge/taue : volt\n    dgi/dt = -gi/taui : volt\n    '''\n\n    P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',\n                    refractory=5 * ms,\n                    method='linear')\n    P.v = 'Vr + rand() * (Vt - Vr)'\n\n    we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)\n    wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight\n    Ce = Synapses(P, P, on_pre='ge += we')\n    Ci = Synapses(P, P, on_pre='gi += wi')\n    Ce.connect('i<3200', p=0.02)\n    Ci.connect('i>=3200', p=0.02)\n\n    s_mon = SpikeMonitor(P)\n\n    run(1 * second)\n", 
-        "goal_time": 2.0, 
+        "code": "class FullExamples:\n    def time_CUBA_example(self, target):\n        taum = 20 * ms\n        taue = 5 * ms\n        taui = 10 * ms\n        Vt = -50 * mV\n        Vr = -60 * mV\n        El = -49 * mV\n    \n        eqs = '''\n        dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)\n        dge/dt = -ge/taue : volt\n        dgi/dt = -gi/taui : volt\n        '''\n    \n        P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',\n                        refractory=5 * ms,\n                        method='linear')\n        P.v = 'Vr + rand() * (Vt - Vr)'\n    \n        we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)\n        wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight\n        Ce = Synapses(P, P, on_pre='ge += we')\n        Ci = Synapses(P, P, on_pre='gi += wi')\n        Ce.connect('i<3200', p=0.02)\n        Ci.connect('i>=3200', p=0.02)\n    \n        s_mon = SpikeMonitor(P)\n    \n        run(1 * second)\n\n    def setup(self, target):\n        codegen_setup(target)", 
+        "min_run_count": 2, 
         "name": "benchmarks.FullExamples.time_CUBA_example", 
         "number": 1, 
         "param_names": [
@@ -36,14 +40,18 @@
             ]
         ], 
         "pretty_name": "CUBA (compilation+runtime)", 
+        "processes": 2, 
         "repeat": 0, 
+        "sample_time": 0.01, 
         "timeout": 300, 
         "type": "time", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "50135c284d50ff93e0604db4600471575c38fa3ecd478104a2dc581a96485e74", 
+        "warmup_time": -1
     }, 
     "benchmarks.FullExamples.time_STDP_example": {
-        "code": "def time_STDP_example(self, target):\n    N = 1000\n    taum = 10 * ms\n    taupre = 20 * ms\n    taupost = taupre\n    Ee = 0 * mV\n    vt = -54 * mV\n    vr = -60 * mV\n    El = -74 * mV\n    taue = 5 * ms\n    F = 15 * Hz\n    gmax = .01\n    dApre = .01\n    dApost = -dApre * taupre / taupost * 1.05\n    dApost *= gmax\n    dApre *= gmax\n\n    eqs_neurons = '''\n    dv/dt = (ge * (Ee-vr) + El - v) / taum : volt\n    dge/dt = -ge / taue : 1\n    '''\n\n    input = PoissonGroup(N, rates=F)\n    neurons = NeuronGroup(1, eqs_neurons, threshold='v>vt', reset='v = vr',\n                          method='linear')\n    S = Synapses(input, neurons,\n                 '''w : 1\n                    dApre/dt = -Apre / taupre : 1 (event-driven)\n                    dApost/dt = -Apost / taupost : 1 (event-driven)''',\n                 on_pre='''ge += w\n                        Apre += dApre\n                        w = clip(w + Apost, 0, gmax)''',\n                 on_post='''Apost += dApost\n                         w = clip(w + Apre, 0, gmax)''',\n                 )\n    S.connect()\n    S.w = 'rand() * gmax'\n    mon = StateMonitor(S, 'w', record=[0, 1])\n    s_mon = SpikeMonitor(input)\n\n    run(10 * second, report='text')\n", 
-        "goal_time": 2.0, 
+        "code": "class FullExamples:\n    def time_STDP_example(self, target):\n        N = 1000\n        taum = 10 * ms\n        taupre = 20 * ms\n        taupost = taupre\n        Ee = 0 * mV\n        vt = -54 * mV\n        vr = -60 * mV\n        El = -74 * mV\n        taue = 5 * ms\n        F = 15 * Hz\n        gmax = .01\n        dApre = .01\n        dApost = -dApre * taupre / taupost * 1.05\n        dApost *= gmax\n        dApre *= gmax\n    \n        eqs_neurons = '''\n        dv/dt = (ge * (Ee-vr) + El - v) / taum : volt\n        dge/dt = -ge / taue : 1\n        '''\n    \n        input = PoissonGroup(N, rates=F)\n        neurons = NeuronGroup(1, eqs_neurons, threshold='v>vt', reset='v = vr',\n                              method='linear')\n        S = Synapses(input, neurons,\n                     '''w : 1\n                        dApre/dt = -Apre / taupre : 1 (event-driven)\n                        dApost/dt = -Apost / taupost : 1 (event-driven)''',\n                     on_pre='''ge += w\n                            Apre += dApre\n                            w = clip(w + Apost, 0, gmax)''',\n                     on_post='''Apost += dApost\n                             w = clip(w + Apre, 0, gmax)''',\n                     )\n        S.connect()\n        S.w = 'rand() * gmax'\n        mon = StateMonitor(S, 'w', record=[0, 1])\n        s_mon = SpikeMonitor(input)\n    \n        run(10 * second, report='text')\n\n    def setup(self, target):\n        codegen_setup(target)", 
+        "min_run_count": 2, 
         "name": "benchmarks.FullExamples.time_STDP_example", 
         "number": 1, 
         "param_names": [
@@ -57,14 +65,18 @@
             ]
         ], 
         "pretty_name": "STDP example (compilation+runtime)", 
+        "processes": 2, 
         "repeat": 0, 
+        "sample_time": 0.01, 
         "timeout": 300, 
         "type": "time", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "789cc10524f725f5492de48781c2490adcd19e3cf3682f57d4216d0419e31d84", 
+        "warmup_time": -1
     }, 
     "benchmarks.FullExamples.time_reliability_example": {
-        "code": "def time_reliability_example(self, target):\n    N = 25\n    tau_input = 5 * ms\n    input = NeuronGroup(1,\n                        'dx/dt = -x / tau_input + (2 /tau_input)**.5 * xi : 1')\n\n    # The noisy neurons receiving the same input\n    tau = 10 * ms\n    sigma = .015\n    eqs_neurons = '''\n    dx/dt = (0.9 + .5 * I - x) / tau + sigma * (2 / tau)**.5 * xi : 1\n    I : 1 (linked)\n    '''\n    neurons = NeuronGroup(N, model=eqs_neurons, threshold='x > 1',\n                          reset='x = 0', refractory=5 * ms, method='euler')\n    neurons.x = 'rand()'\n    neurons.I = linked_var(input,\n                           'x')  # input.x is continuously fed into neurons.I\n    spikes = SpikeMonitor(neurons)\n\n    run(1 * second)\n", 
-        "goal_time": 2.0, 
+        "code": "class FullExamples:\n    def time_reliability_example(self, target):\n        N = 25\n        tau_input = 5 * ms\n        input = NeuronGroup(1,\n                            'dx/dt = -x / tau_input + (2 /tau_input)**.5 * xi : 1')\n    \n        # The noisy neurons receiving the same input\n        tau = 10 * ms\n        sigma = .015\n        eqs_neurons = '''\n        dx/dt = (0.9 + .5 * I - x) / tau + sigma * (2 / tau)**.5 * xi : 1\n        I : 1 (linked)\n        '''\n        neurons = NeuronGroup(N, model=eqs_neurons, threshold='x > 1',\n                              reset='x = 0', refractory=5 * ms, method='euler')\n        neurons.x = 'rand()'\n        neurons.I = linked_var(input,\n                               'x')  # input.x is continuously fed into neurons.I\n        spikes = SpikeMonitor(neurons)\n    \n        run(1 * second)\n\n    def setup(self, target):\n        codegen_setup(target)", 
+        "min_run_count": 2, 
         "name": "benchmarks.FullExamples.time_reliability_example", 
         "number": 1, 
         "param_names": [
@@ -78,13 +90,17 @@
             ]
         ], 
         "pretty_name": "reliability example (compilation+runtime)", 
+        "processes": 2, 
         "repeat": 0, 
+        "sample_time": 0.01, 
         "timeout": 300, 
         "type": "time", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "f08d12e7650f925fbb374c02327a6de0dfcc285d46db0a76cd0511b482e04f64", 
+        "warmup_time": -1
     }, 
     "benchmarks.Microbenchmarks.peakmem_statemonitor": {
-        "code": "def peakmem_statemonitor(self, target):\n    group = NeuronGroup(1000, 'v : 1')\n    mon = StateMonitor(group, 'v', record=True)\n    run(1*second)\n", 
+        "code": "class Microbenchmarks:\n    def peakmem_statemonitor(self, target):\n        group = NeuronGroup(1000, 'v : 1')\n        mon = StateMonitor(group, 'v', record=True)\n        run(1*second)\n\n    def setup(self, target):\n        codegen_setup(target)", 
         "name": "benchmarks.Microbenchmarks.peakmem_statemonitor", 
         "param_names": [
             "target"
@@ -99,11 +115,12 @@
         "pretty_name": "StateMonitor (peak memory)", 
         "timeout": 60.0, 
         "type": "peakmemory", 
-        "unit": "bytes"
+        "unit": "bytes", 
+        "version": "f92a9615edcf4489b34c14926093f2d82027502d382567b0fd3b448c1cf88c9e"
     }, 
     "benchmarks.Microbenchmarks.time_statemonitor": {
-        "code": "def time_statemonitor(self, target):\n    group = NeuronGroup(1000, 'v : 1')\n    mon = StateMonitor(group, 'v', record=True)\n    run(1*second)\n", 
-        "goal_time": 2.0, 
+        "code": "class Microbenchmarks:\n    def time_statemonitor(self, target):\n        group = NeuronGroup(1000, 'v : 1')\n        mon = StateMonitor(group, 'v', record=True)\n        run(1*second)\n\n    def setup(self, target):\n        codegen_setup(target)", 
+        "min_run_count": 2, 
         "name": "benchmarks.Microbenchmarks.time_statemonitor", 
         "number": 1, 
         "param_names": [
@@ -117,13 +134,17 @@
             ]
         ], 
         "pretty_name": "StateMonitor (compilation+runtime)", 
+        "processes": 2, 
         "repeat": 0, 
+        "sample_time": 0.01, 
         "timeout": 60.0, 
         "type": "time", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "1ad79864d951274fa80a61d77b7210afc84a8e77e5029ee2e8b2435b5ec0b7a6", 
+        "warmup_time": -1
     }, 
     "benchmarks.RuntimeBenchmarks.peakmem_repeated_run": {
-        "code": "def peakmem_repeated_run(self, target):\n    taum = 20 * ms\n    taue = 5 * ms\n    taui = 10 * ms\n    Vt = -50 * mV\n    Vr = -60 * mV\n    El = -49 * mV\n    for _ in range(10):\n        eqs = '''\n                dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)\n                dge/dt = -ge/taue : volt\n                dgi/dt = -gi/taui : volt\n                '''\n        P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',\n                        refractory=5 * ms, method='linear')\n        P.v = 'Vr + rand() * (Vt - Vr)'\n\n        we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)\n        wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight\n        Ce = Synapses(P, P, on_pre='ge += we')\n        Ci = Synapses(P, P, on_pre='gi += wi')\n        Ce.connect('i<3200', p=0.02)\n        Ci.connect('i>=3200', p=0.02)\n        spikes = SpikeMonitor(P)\n        run(1 * second)\n", 
+        "code": "class RuntimeBenchmarks:\n    def peakmem_repeated_run(self, target):\n        taum = 20 * ms\n        taue = 5 * ms\n        taui = 10 * ms\n        Vt = -50 * mV\n        Vr = -60 * mV\n        El = -49 * mV\n        for _ in range(10):\n            eqs = '''\n                    dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)\n                    dge/dt = -ge/taue : volt\n                    dgi/dt = -gi/taui : volt\n                    '''\n            P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',\n                            refractory=5 * ms, method='linear')\n            P.v = 'Vr + rand() * (Vt - Vr)'\n    \n            we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)\n            wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight\n            Ce = Synapses(P, P, on_pre='ge += we')\n            Ci = Synapses(P, P, on_pre='gi += wi')\n            Ce.connect('i<3200', p=0.02)\n            Ci.connect('i>=3200', p=0.02)\n            spikes = SpikeMonitor(P)\n            run(1 * second)", 
         "name": "benchmarks.RuntimeBenchmarks.peakmem_repeated_run", 
         "param_names": [
             "target"
@@ -134,14 +155,14 @@
                 "'cython'"
             ]
         ], 
-        "pretty_name": "benchmarks.RuntimeBenchmarks.peakmem_repeated_run", 
         "timeout": 300, 
         "type": "peakmemory", 
-        "unit": "bytes"
+        "unit": "bytes", 
+        "version": "f51bdb2a481ad952701fd0cc871d896f792882c3bd2b140e5aa5cfca25d368ed"
     }, 
     "benchmarks.RuntimeBenchmarks.time_repeated_run": {
-        "code": "def time_repeated_run(self, target):\n    taum = 20 * ms\n    taue = 5 * ms\n    taui = 10 * ms\n    Vt = -50 * mV\n    Vr = -60 * mV\n    El = -49 * mV\n    for _ in range(10):\n        eqs = '''\n                dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)\n                dge/dt = -ge/taue : volt\n                dgi/dt = -gi/taui : volt\n                '''\n        P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',\n                        refractory=5 * ms, method='linear')\n        P.v = 'Vr + rand() * (Vt - Vr)'\n\n        we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)\n        wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight\n        Ce = Synapses(P, P, on_pre='ge += we')\n        Ci = Synapses(P, P, on_pre='gi += wi')\n        Ce.connect('i<3200', p=0.02)\n        Ci.connect('i>=3200', p=0.02)\n        spikes = SpikeMonitor(P)\n        run(1*second)\n", 
-        "goal_time": 2.0, 
+        "code": "class RuntimeBenchmarks:\n    def time_repeated_run(self, target):\n        taum = 20 * ms\n        taue = 5 * ms\n        taui = 10 * ms\n        Vt = -50 * mV\n        Vr = -60 * mV\n        El = -49 * mV\n        for _ in range(10):\n            eqs = '''\n                    dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)\n                    dge/dt = -ge/taue : volt\n                    dgi/dt = -gi/taui : volt\n                    '''\n            P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',\n                            refractory=5 * ms, method='linear')\n            P.v = 'Vr + rand() * (Vt - Vr)'\n    \n            we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)\n            wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight\n            Ce = Synapses(P, P, on_pre='ge += we')\n            Ci = Synapses(P, P, on_pre='gi += wi')\n            Ce.connect('i<3200', p=0.02)\n            Ci.connect('i>=3200', p=0.02)\n            spikes = SpikeMonitor(P)\n            run(1*second)", 
+        "min_run_count": 2, 
         "name": "benchmarks.RuntimeBenchmarks.time_repeated_run", 
         "number": 0, 
         "param_names": [
@@ -154,14 +175,18 @@
             ]
         ], 
         "pretty_name": "Repeated runs (compilation+runtime)", 
+        "processes": 2, 
         "repeat": 0, 
+        "sample_time": 0.01, 
         "timeout": 300, 
         "type": "time", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "104156a8f36062fbc4d4f2fb8d30143aded224c73a767ccb69d1520981971950", 
+        "warmup_time": -1
     }, 
     "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore": {
-        "code": "def time_repeated_run_store_restore(self, target):\n    taum = 20 * ms\n    taue = 5 * ms\n    taui = 10 * ms\n    Vt = -50 * mV\n    Vr = -60 * mV\n    El = -49 * mV\n    eqs = '''\n            dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)\n            dge/dt = -ge/taue : volt\n            dgi/dt = -gi/taui : volt\n          '''\n    P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',\n                    refractory=5 * ms, method='linear')\n    P.v = 'Vr + rand() * (Vt - Vr)'\n\n    we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)\n    wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight\n    Ce = Synapses(P, P, on_pre='ge += we')\n    Ci = Synapses(P, P, on_pre='gi += wi')\n    spikes = SpikeMonitor(P)\n    store()\n    for _ in range(10):\n        restore()\n        Ce.connect('i<3200', p=0.02)\n        Ci.connect('i>=3200', p=0.02)\n        run(1*second)\n", 
-        "goal_time": 2.0, 
+        "code": "class RuntimeBenchmarks:\n    def time_repeated_run_store_restore(self, target):\n        taum = 20 * ms\n        taue = 5 * ms\n        taui = 10 * ms\n        Vt = -50 * mV\n        Vr = -60 * mV\n        El = -49 * mV\n        eqs = '''\n                dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)\n                dge/dt = -ge/taue : volt\n                dgi/dt = -gi/taui : volt\n              '''\n        P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',\n                        refractory=5 * ms, method='linear')\n        P.v = 'Vr + rand() * (Vt - Vr)'\n    \n        we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)\n        wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight\n        Ce = Synapses(P, P, on_pre='ge += we')\n        Ci = Synapses(P, P, on_pre='gi += wi')\n        spikes = SpikeMonitor(P)\n        store()\n        for _ in range(10):\n            restore()\n            Ce.connect('i<3200', p=0.02)\n            Ci.connect('i>=3200', p=0.02)\n            run(1*second)", 
+        "min_run_count": 2, 
         "name": "benchmarks.RuntimeBenchmarks.time_repeated_run_store_restore", 
         "number": 0, 
         "param_names": [
@@ -174,13 +199,17 @@
             ]
         ], 
         "pretty_name": "Repeated runs with store/restore (compilation+runtime)", 
+        "processes": 2, 
         "repeat": 0, 
+        "sample_time": 0.01, 
         "timeout": 300, 
         "type": "time", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "dea38db16b951af46140c55ac1da19ab1d6b9a65afb001c2127a567356bc3fc9", 
+        "warmup_time": -1
     }, 
     "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": {
-        "code": "def track_COBAHH_example(self, target):\n    '''\n    COBAHH example (only runtime, excluding compilation)\n    '''\n    times = []\n    for _ in range(3):\n        device.reinit()\n        device.activate()\n        start_scope()\n        # Parameters\n        area = 20000 * umetre ** 2\n        Cm = (1 * ufarad * cm ** -2) * area\n        gl = (5e-5 * siemens * cm ** -2) * area\n\n        El = -60 * mV\n        EK = -90 * mV\n        ENa = 50 * mV\n        g_na = (100 * msiemens * cm ** -2) * area\n        g_kd = (30 * msiemens * cm ** -2) * area\n        VT = -63 * mV\n        # Time constants\n        taue = 5 * ms\n        taui = 10 * ms\n        # Reversal potentials\n        Ee = 0 * mV\n        Ei = -80 * mV\n        we = 6 * nS  # excitatory synaptic weight\n        wi = 67 * nS  # inhibitory synaptic weight\n\n        # The model\n        eqs = Equations('''\n        dv/dt = (gl*(El-v)+ge*(Ee-v)+gi*(Ei-v)-\n                 g_na*(m*m*m)*h*(v-ENa)-\n                 g_kd*(n*n*n*n)*(v-EK))/Cm : volt\n        dm/dt = alpha_m*(1-m)-beta_m*m : 1\n        dn/dt = alpha_n*(1-n)-beta_n*n : 1\n        dh/dt = alpha_h*(1-h)-beta_h*h : 1\n        dge/dt = -ge*(1./taue) : siemens\n        dgi/dt = -gi*(1./taui) : siemens\n        alpha_m = 0.32*(mV**-1)*(13*mV-v+VT)/\n                 (exp((13*mV-v+VT)/(4*mV))-1.)/ms : Hz\n        beta_m = 0.28*(mV**-1)*(v-VT-40*mV)/\n                (exp((v-VT-40*mV)/(5*mV))-1)/ms : Hz\n        alpha_h = 0.128*exp((17*mV-v+VT)/(18*mV))/ms : Hz\n        beta_h = 4./(1+exp((40*mV-v+VT)/(5*mV)))/ms : Hz\n        alpha_n = 0.032*(mV**-1)*(15*mV-v+VT)/\n                 (exp((15*mV-v+VT)/(5*mV))-1.)/ms : Hz\n        beta_n = .5*exp((10*mV-v+VT)/(40*mV))/ms : Hz\n        ''')\n\n        P = NeuronGroup(4000, model=eqs, threshold='v>-20*mV',\n                        refractory=3 * ms,\n                        method='exponential_euler')\n        Pe = P[:3200]\n        Pi = P[3200:]\n        Ce = Synapses(Pe, P, on_pre='ge+=we')\n        Ci = Synapses(Pi, P, on_pre='gi+=wi')\n        Ce.connect(p=0.02)\n        Ci.connect(p=0.02)\n\n        # Initialization\n        P.v = 'El + (randn() * 5 - 5)*mV'\n        P.ge = '(randn() * 1.5 + 4) * 10.*nS'\n        P.gi = '(randn() * 12 + 20) * 10.*nS'\n\n        # Record a few traces\n        trace = StateMonitor(P, 'v', record=[1, 10, 100])\n        run(1 * second, report='text')\n        times.append(device._last_run_time)\n    return np.median(times)\n", 
+        "code": "class RuntimeOnlyExamples:\n    def track_COBAHH_example(self, target):\n        '''\n        COBAHH example (only runtime, excluding compilation)\n        '''\n        times = []\n        for _ in range(3):\n            device.reinit()\n            device.activate()\n            start_scope()\n            # Parameters\n            area = 20000 * umetre ** 2\n            Cm = (1 * ufarad * cm ** -2) * area\n            gl = (5e-5 * siemens * cm ** -2) * area\n    \n            El = -60 * mV\n            EK = -90 * mV\n            ENa = 50 * mV\n            g_na = (100 * msiemens * cm ** -2) * area\n            g_kd = (30 * msiemens * cm ** -2) * area\n            VT = -63 * mV\n            # Time constants\n            taue = 5 * ms\n            taui = 10 * ms\n            # Reversal potentials\n            Ee = 0 * mV\n            Ei = -80 * mV\n            we = 6 * nS  # excitatory synaptic weight\n            wi = 67 * nS  # inhibitory synaptic weight\n    \n            # The model\n            eqs = Equations('''\n            dv/dt = (gl*(El-v)+ge*(Ee-v)+gi*(Ei-v)-\n                     g_na*(m*m*m)*h*(v-ENa)-\n                     g_kd*(n*n*n*n)*(v-EK))/Cm : volt\n            dm/dt = alpha_m*(1-m)-beta_m*m : 1\n            dn/dt = alpha_n*(1-n)-beta_n*n : 1\n            dh/dt = alpha_h*(1-h)-beta_h*h : 1\n            dge/dt = -ge*(1./taue) : siemens\n            dgi/dt = -gi*(1./taui) : siemens\n            alpha_m = 0.32*(mV**-1)*(13*mV-v+VT)/\n                     (exp((13*mV-v+VT)/(4*mV))-1.)/ms : Hz\n            beta_m = 0.28*(mV**-1)*(v-VT-40*mV)/\n                    (exp((v-VT-40*mV)/(5*mV))-1)/ms : Hz\n            alpha_h = 0.128*exp((17*mV-v+VT)/(18*mV))/ms : Hz\n            beta_h = 4./(1+exp((40*mV-v+VT)/(5*mV)))/ms : Hz\n            alpha_n = 0.032*(mV**-1)*(15*mV-v+VT)/\n                     (exp((15*mV-v+VT)/(5*mV))-1.)/ms : Hz\n            beta_n = .5*exp((10*mV-v+VT)/(40*mV))/ms : Hz\n            ''')\n    \n            P = NeuronGroup(4000, model=eqs, threshold='v>-20*mV',\n                            refractory=3 * ms,\n                            method='exponential_euler')\n            Pe = P[:3200]\n            Pi = P[3200:]\n            Ce = Synapses(Pe, P, on_pre='ge+=we')\n            Ci = Synapses(Pi, P, on_pre='gi+=wi')\n            Ce.connect(p=0.02)\n            Ci.connect(p=0.02)\n    \n            # Initialization\n            P.v = 'El + (randn() * 5 - 5)*mV'\n            P.ge = '(randn() * 1.5 + 4) * 10.*nS'\n            P.gi = '(randn() * 12 + 20) * 10.*nS'\n    \n            # Record a few traces\n            trace = StateMonitor(P, 'v', record=[1, 10, 100])\n            run(1 * second, report='text')\n            times.append(device._last_run_time)\n        return np.median(times)\n\n    def setup(self, target):\n        codegen_setup(target)", 
         "name": "benchmarks.RuntimeOnlyExamples.track_COBAHH_example", 
         "param_names": [
             "target"
@@ -195,10 +224,11 @@
         "pretty_name": "COBAHH (runtime only)", 
         "timeout": 60.0, 
         "type": "track", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "75f7bbea8e7a21f2c3adf99ba7a8aa6c44f1a4cf4998478308338873af106f0c"
     }, 
     "benchmarks.RuntimeOnlyExamples.track_CUBA_example": {
-        "code": "def track_CUBA_example(self, target):\n    '''\n    CUBA example (only runtime, excluding compilation)\n    '''\n    times = []\n    for _ in range(3):\n        device.reinit()\n        device.activate()\n        start_scope()\n        taum = 20 * ms\n        taue = 5 * ms\n        taui = 10 * ms\n        Vt = -50 * mV\n        Vr = -60 * mV\n        El = -49 * mV\n\n        eqs = '''\n        dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)\n        dge/dt = -ge/taue : volt\n        dgi/dt = -gi/taui : volt\n        '''\n\n        P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',\n                        refractory=5 * ms,\n                        method='linear')\n        P.v = 'Vr + rand() * (Vt - Vr)'\n\n        we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)\n        wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight\n        Ce = Synapses(P, P, on_pre='ge += we')\n        Ci = Synapses(P, P, on_pre='gi += wi')\n        Ce.connect('i<3200', p=0.02)\n        Ci.connect('i>=3200', p=0.02)\n\n        s_mon = SpikeMonitor(P)\n\n        run(1 * second)\n        times.append(device._last_run_time)\n    return np.median(times)\n", 
+        "code": "class RuntimeOnlyExamples:\n    def track_CUBA_example(self, target):\n        '''\n        CUBA example (only runtime, excluding compilation)\n        '''\n        times = []\n        for _ in range(3):\n            device.reinit()\n            device.activate()\n            start_scope()\n            taum = 20 * ms\n            taue = 5 * ms\n            taui = 10 * ms\n            Vt = -50 * mV\n            Vr = -60 * mV\n            El = -49 * mV\n    \n            eqs = '''\n            dv/dt  = (ge+gi-(v-El))/taum : volt (unless refractory)\n            dge/dt = -ge/taue : volt\n            dgi/dt = -gi/taui : volt\n            '''\n    \n            P = NeuronGroup(4000, eqs, threshold='v>Vt', reset='v = Vr',\n                            refractory=5 * ms,\n                            method='linear')\n            P.v = 'Vr + rand() * (Vt - Vr)'\n    \n            we = (60 * 0.27 / 10) * mV  # excitatory synaptic weight (voltage)\n            wi = (-20 * 4.5 / 10) * mV  # inhibitory synaptic weight\n            Ce = Synapses(P, P, on_pre='ge += we')\n            Ci = Synapses(P, P, on_pre='gi += wi')\n            Ce.connect('i<3200', p=0.02)\n            Ci.connect('i>=3200', p=0.02)\n    \n            s_mon = SpikeMonitor(P)\n    \n            run(1 * second)\n            times.append(device._last_run_time)\n        return np.median(times)\n\n    def setup(self, target):\n        codegen_setup(target)", 
         "name": "benchmarks.RuntimeOnlyExamples.track_CUBA_example", 
         "param_names": [
             "target"
@@ -213,10 +243,11 @@
         "pretty_name": "CUBA (runtime only)", 
         "timeout": 60.0, 
         "type": "track", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "b21319e33cf4b239da5fbaa3e99df2957bdcc4e3f12aa3d8e9ba4ef968720252"
     }, 
     "benchmarks.RuntimeOnlyExamples.track_STDP_example": {
-        "code": "def track_STDP_example(self, target):\n    '''\n    STDP example (only runtime, excluding compilation)\n    '''\n    times = []\n    for _ in range(3):\n        device.reinit()\n        device.activate()\n        start_scope()\n        N = 1000\n        taum = 10 * ms\n        taupre = 20 * ms\n        taupost = taupre\n        Ee = 0 * mV\n        vt = -54 * mV\n        vr = -60 * mV\n        El = -74 * mV\n        taue = 5 * ms\n        F = 15 * Hz\n        gmax = .01\n        dApre = .01\n        dApost = -dApre * taupre / taupost * 1.05\n        dApost *= gmax\n        dApre *= gmax\n\n        eqs_neurons = '''\n        dv/dt = (ge * (Ee-vr) + El - v) / taum : volt\n        dge/dt = -ge / taue : 1\n        '''\n\n        input = PoissonGroup(N, rates=F)\n        neurons = NeuronGroup(1, eqs_neurons, threshold='v>vt',\n                              reset='v = vr',\n                              method='linear')\n        S = Synapses(input, neurons,\n                     '''w : 1\n                        dApre/dt = -Apre / taupre : 1 (event-driven)\n                        dApost/dt = -Apost / taupost : 1 (event-driven)''',\n                     on_pre='''ge += w\n                            Apre += dApre\n                            w = clip(w + Apost, 0, gmax)''',\n                     on_post='''Apost += dApost\n                             w = clip(w + Apre, 0, gmax)''',\n                     )\n        S.connect()\n        S.w = 'rand() * gmax'\n        mon = StateMonitor(S, 'w', record=[0, 1])\n        s_mon = SpikeMonitor(input)\n\n        run(1 * second, report='text')\n        times.append(device._last_run_time)\n    return np.median(times)\n", 
+        "code": "class RuntimeOnlyExamples:\n    def track_STDP_example(self, target):\n        '''\n        STDP example (only runtime, excluding compilation)\n        '''\n        times = []\n        for _ in range(3):\n            device.reinit()\n            device.activate()\n            start_scope()\n            N = 1000\n            taum = 10 * ms\n            taupre = 20 * ms\n            taupost = taupre\n            Ee = 0 * mV\n            vt = -54 * mV\n            vr = -60 * mV\n            El = -74 * mV\n            taue = 5 * ms\n            F = 15 * Hz\n            gmax = .01\n            dApre = .01\n            dApost = -dApre * taupre / taupost * 1.05\n            dApost *= gmax\n            dApre *= gmax\n    \n            eqs_neurons = '''\n            dv/dt = (ge * (Ee-vr) + El - v) / taum : volt\n            dge/dt = -ge / taue : 1\n            '''\n    \n            input = PoissonGroup(N, rates=F)\n            neurons = NeuronGroup(1, eqs_neurons, threshold='v>vt',\n                                  reset='v = vr',\n                                  method='linear')\n            S = Synapses(input, neurons,\n                         '''w : 1\n                            dApre/dt = -Apre / taupre : 1 (event-driven)\n                            dApost/dt = -Apost / taupost : 1 (event-driven)''',\n                         on_pre='''ge += w\n                                Apre += dApre\n                                w = clip(w + Apost, 0, gmax)''',\n                         on_post='''Apost += dApost\n                                 w = clip(w + Apre, 0, gmax)''',\n                         )\n            S.connect()\n            S.w = 'rand() * gmax'\n            mon = StateMonitor(S, 'w', record=[0, 1])\n            s_mon = SpikeMonitor(input)\n    \n            run(1 * second, report='text')\n            times.append(device._last_run_time)\n        return np.median(times)\n\n    def setup(self, target):\n        codegen_setup(target)", 
         "name": "benchmarks.RuntimeOnlyExamples.track_STDP_example", 
         "param_names": [
             "target"
@@ -231,46 +262,97 @@
         "pretty_name": "STDP example (runtime only)", 
         "timeout": 60.0, 
         "type": "track", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "cf3d2b6b81a2b66495bf991d0fea6e9d946f415f775b6c8b26f96ea299a727d1"
+    }, 
+    "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": {
+        "code": "class RuntimeOnlyExamples:\n    def track_SpikeGenerator(self, target):\n        '''\n        SpikeGeneratorGroup (only runtime, excluding compilation)\n        '''\n        times = []\n        for _ in range(3):\n            device.reinit()\n            device.activate()\n            start_scope()\n            # 10 Synchronous bursts of two separate subgroups\n            s_gen = SpikeGeneratorGroup(100, np.tile(np.arange(100), 100),\n                                        np.repeat(np.arange(200)*0.5, 50)*100*ms)\n    \n            run(10 * second)\n            times.append(device._last_run_time)\n        return np.median(times)\n\n    def setup(self, target):\n        codegen_setup(target)", 
+        "name": "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator", 
+        "param_names": [
+            "target"
+        ], 
+        "params": [
+            [
+                "'numpy'", 
+                "'cython'", 
+                "'cpp_standalone'"
+            ]
+        ], 
+        "pretty_name": "SpikeGenerator (runtime only)", 
+        "timeout": 60.0, 
+        "type": "track", 
+        "unit": "seconds", 
+        "version": "f7a359ea151e318da3e6d522e2e2b8076d253fd5b73b3fd0cf9d5be3debb85ca"
+    }, 
+    "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": {
+        "code": "class RuntimeOnlyExamples:\n    def track_SpikeGenerator_with_period(self, target):\n        '''\n        SpikeGeneratorGroup with period argument (only runtime, excluding compilation)\n        '''\n        times = []\n        for _ in range(3):\n            device.reinit()\n            device.activate()\n            start_scope()\n            # 10 Synchronous bursts of two separate subgroups\n            s_gen = SpikeGeneratorGroup(100, np.arange(100),\n                                        np.repeat([0, 50], 50)*ms,\n                                        period=100*ms)\n    \n            run(10 * second)\n            times.append(device._last_run_time)\n        return np.median(times)\n\n    def setup(self, target):\n        codegen_setup(target)", 
+        "name": "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period", 
+        "param_names": [
+            "target"
+        ], 
+        "params": [
+            [
+                "'numpy'", 
+                "'cython'", 
+                "'cpp_standalone'"
+            ]
+        ], 
+        "pretty_name": "SpikeGenerator with period (runtime only)", 
+        "timeout": 60.0, 
+        "type": "track", 
+        "unit": "seconds", 
+        "version": "31f0d842863b709555c19c35afb78009bf62a7ecd0945d8b64e1b56dd476736e"
     }, 
     "benchmarks.UnitBenchmarks.time_calculations_with_units": {
-        "code": "def time_calculations_with_units(self):\n    rmse = np.sqrt(np.mean(self.ar_with_units**2))\n", 
-        "goal_time": 2.0, 
+        "code": "class UnitBenchmarks:\n    def time_calculations_with_units(self):\n        rmse = np.sqrt(np.mean(self.ar_with_units**2))\n\n    def setup(self):\n        self.ar = np.random.randn(1000000)\n        self.ar_with_units = self.ar * mV", 
+        "min_run_count": 2, 
         "name": "benchmarks.UnitBenchmarks.time_calculations_with_units", 
         "number": 0, 
         "param_names": [], 
         "params": [], 
         "pretty_name": "Calulation with quantities", 
+        "processes": 2, 
         "repeat": 0, 
+        "sample_time": 0.01, 
         "timeout": 60.0, 
         "type": "time", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "19c6c10b7558772c5bb48b78ff57d4cbaa0fa01d59c79bb735e3d9ce1de377c4", 
+        "warmup_time": -1
     }, 
     "benchmarks.UnitBenchmarks.time_unit_removal_by_division": {
-        "code": "def time_unit_removal_by_division(self):\n    no_units = self.ar_with_units / mV\n", 
-        "goal_time": 2.0, 
+        "code": "class UnitBenchmarks:\n    def time_unit_removal_by_division(self):\n        no_units = self.ar_with_units / mV\n\n    def setup(self):\n        self.ar = np.random.randn(1000000)\n        self.ar_with_units = self.ar * mV", 
+        "min_run_count": 2, 
         "name": "benchmarks.UnitBenchmarks.time_unit_removal_by_division", 
         "number": 0, 
         "param_names": [], 
         "params": [], 
         "pretty_name": "Unit removal by division", 
+        "processes": 2, 
         "repeat": 0, 
+        "sample_time": 0.01, 
         "timeout": 60.0, 
         "type": "time", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "59a473ca41f00b55137912b853265037fc40efa0bf1af3885c29250a86323eef", 
+        "warmup_time": -1
     }, 
     "benchmarks.UnitBenchmarks.time_units_to_string": {
-        "code": "def time_units_to_string(self):\n    str(self.ar_with_units)\n", 
-        "goal_time": 2.0, 
+        "code": "class UnitBenchmarks:\n    def time_units_to_string(self):\n        str(self.ar_with_units)\n\n    def setup(self):\n        self.ar = np.random.randn(1000000)\n        self.ar_with_units = self.ar * mV", 
+        "min_run_count": 2, 
         "name": "benchmarks.UnitBenchmarks.time_units_to_string", 
         "number": 0, 
         "param_names": [], 
         "params": [], 
         "pretty_name": "Conversion quantity->string", 
+        "processes": 2, 
         "repeat": 0, 
+        "sample_time": 0.01, 
         "timeout": 60.0, 
         "type": "time", 
-        "unit": "seconds"
+        "unit": "seconds", 
+        "version": "abb5a0a7338805c0fe09cb2b47240ceb779ce84a3775ec3e5fcd4c6d2b552695", 
+        "warmup_time": -1
     }, 
-    "version": 1
+    "version": 2
 }

@@ -1,0 +1,62 @@
+{
+    "benchmark_version": {
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": "f7a359ea151e318da3e6d522e2e2b8076d253fd5b73b3fd0cf9d5be3debb85ca", 
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": "31f0d842863b709555c19c35afb78009bf62a7ecd0945d8b64e1b56dd476736e"
+    }, 
+    "commit_hash": "5fb4809907f844d77e36662a702114eafc0dac4a", 
+    "date": 1513594556000, 
+    "ended_at": {
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": 1546969528691, 
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": 1546969541879
+    }, 
+    "env_name": "conda-py3.6-cython", 
+    "params": {
+        "arch": "x86_64", 
+        "cpu": "Intel(R) Xeon(R) CPU E5-1630 v3 @ 3.70GHz", 
+        "cython": "", 
+        "machine": "vuvuzela", 
+        "os": "Linux 4.4.0-119-generic", 
+        "python": "3.6", 
+        "ram": "16354876"
+    }, 
+    "profiles": {}, 
+    "python": "3.6", 
+    "requirements": {
+        "cython": ""
+    }, 
+    "results": {
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                1.6632070541381836, 
+                0.8245587348937988, 
+                0.095801
+            ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                1.6346187591552734, 
+                0.842735767364502, 
+                0.101152
+            ]
+        }
+    }, 
+    "started_at": {
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": 1546969515453, 
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": 1546969528691
+    }, 
+    "version": 1
+}

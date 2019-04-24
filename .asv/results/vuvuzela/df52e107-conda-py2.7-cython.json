@@ -1,4 +1,8 @@
 {
+    "benchmark_version": {
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": "f7a359ea151e318da3e6d522e2e2b8076d253fd5b73b3fd0cf9d5be3debb85ca", 
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": "31f0d842863b709555c19c35afb78009bf62a7ecd0945d8b64e1b56dd476736e"
+    }, 
     "commit_hash": "df52e10703da5cd6d1f11263b79e092d55391592", 
     "date": 1509370623000, 
     "ended_at": {
@@ -14,6 +18,8 @@
         "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535061543000, 
         "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535061625000, 
         "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535061696000, 
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": 1547022767225, 
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": 1547022780915, 
         "benchmarks.UnitBenchmarks.time_calculations_with_units": 1523525829000, 
         "benchmarks.UnitBenchmarks.time_units_to_string": 1523525832000
     }, 
@@ -195,6 +201,34 @@
                 0.233901
             ]
         }, 
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                1.371696949005127, 
+                0.9733519554138184, 
+                0.0929
+            ]
+        }, 
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": {
+            "params": [
+                [
+                    "'numpy'", 
+                    "'cython'", 
+                    "'cpp_standalone'"
+                ]
+            ], 
+            "result": [
+                1.3778600692749023, 
+                0.9596030712127686, 
+                0.097328
+            ]
+        }, 
         "benchmarks.UnitBenchmarks.time_calculations_with_units": 0.0016980782639999998, 
         "benchmarks.UnitBenchmarks.time_units_to_string": 0.7760709639999996
     }, 
@@ -211,6 +245,8 @@
         "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535061314000, 
         "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535061543000, 
         "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535061625000, 
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": 1547022753583, 
+        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": 1547022767226, 
         "benchmarks.UnitBenchmarks.time_calculations_with_units": 1523525823000, 
         "benchmarks.UnitBenchmarks.time_units_to_string": 1523525829000
     }, 
