@@ -1,18 +1,8 @@
 {
-    "benchmark_version": {
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": "f7a359ea151e318da3e6d522e2e2b8076d253fd5b73b3fd0cf9d5be3debb85ca", 
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": "31f0d842863b709555c19c35afb78009bf62a7ecd0945d8b64e1b56dd476736e"
-    }, 
+    "benchmark_version": {}, 
     "commit_hash": "27c966d0e4722a170a5fcbca8e3e73cb50505c67", 
     "date": 1503103310000, 
-    "ended_at": {
-        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535062729000, 
-        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535062805000, 
-        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535062871000, 
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": 1546969708970, 
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": 1546969727168, 
-        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 1528274824000
-    }, 
+    "ended_at": {}, 
     "env_name": "conda-py3.6-cython", 
     "params": {
         "arch": "x86_64", 
@@ -28,86 +18,7 @@
     "requirements": {
         "cython": ""
     }, 
-    "results": {
-        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": {
-            "params": [
-                [
-                    "'numpy'", 
-                    "'cython'", 
-                    "'cpp_standalone'"
-                ]
-            ], 
-            "result": [
-                43.274901390075684, 
-                10.475133657455444, 
-                7.13691
-            ]
-        }, 
-        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": {
-            "params": [
-                [
-                    "'numpy'", 
-                    "'cython'", 
-                    "'cpp_standalone'"
-                ]
-            ], 
-            "result": [
-                2.3643457889556885, 
-                1.0952832698822021, 
-                0.190315
-            ]
-        }, 
-        "benchmarks.RuntimeOnlyExamples.track_STDP_example": {
-            "params": [
-                [
-                    "'numpy'", 
-                    "'cython'", 
-                    "'cpp_standalone'"
-                ]
-            ], 
-            "result": [
-                2.2505555152893066, 
-                1.2448580265045166, 
-                0.196133
-            ]
-        }, 
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": {
-            "params": [
-                [
-                    "'numpy'", 
-                    "'cython'", 
-                    "'cpp_standalone'"
-                ]
-            ], 
-            "result": [
-                2.3929636478424072, 
-                1.589275598526001, 
-                0.092603
-            ]
-        }, 
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": {
-            "params": [
-                [
-                    "'numpy'", 
-                    "'cython'", 
-                    "'cpp_standalone'"
-                ]
-            ], 
-            "result": [
-                2.4208178520202637, 
-                1.6926970481872559, 
-                0.09596
-            ]
-        }, 
-        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 0.0019350146110000003
-    }, 
-    "started_at": {
-        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535062500000, 
-        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535062729000, 
-        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535062805000, 
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": 1546969691377, 
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": 1546969708970, 
-        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 1528274817000
-    }, 
+    "results": {}, 
+    "started_at": {}, 
     "version": 1
 }

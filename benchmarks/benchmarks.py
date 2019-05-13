@@ -389,48 +389,9 @@ class RuntimeOnlyExamples:
             times.append(device._last_run_time)
         return np.median(times)
 
-    def track_SpikeGenerator(self, target):
-        '''
-        SpikeGeneratorGroup (only runtime, excluding compilation)
-        '''
-        times = []
-        for _ in range(3):
-            device.reinit()
-            device.activate()
-            start_scope()
-            # 10 Synchronous bursts of two separate subgroups
-            s_gen = SpikeGeneratorGroup(100, np.tile(np.arange(100), 100),
-                                        np.repeat(np.arange(200)*0.5, 50)*100*ms)
-
-            run(10 * second)
-            times.append(device._last_run_time)
-        return np.median(times)
-
-    def track_SpikeGenerator_with_period(self, target):
-        '''
-        SpikeGeneratorGroup with period argument (only runtime, excluding compilation)
-        '''
-        times = []
-        for _ in range(3):
-            device.reinit()
-            device.activate()
-            start_scope()
-            # 10 Synchronous bursts of two separate subgroups
-            s_gen = SpikeGeneratorGroup(100, np.arange(100),
-                                        np.repeat([0, 50], 50)*ms,
-                                        period=100*ms)
-
-            run(10 * second)
-            times.append(device._last_run_time)
-        return np.median(times)
-
-
     track_COBAHH_example.pretty_name = 'COBAHH (runtime only)'
     track_CUBA_example.pretty_name = 'CUBA (runtime only)'
     track_STDP_example.pretty_name = 'STDP example (runtime only)'
-    track_SpikeGenerator.pretty_name = 'SpikeGenerator (runtime only)'
-    track_SpikeGenerator_with_period.pretty_name = 'SpikeGenerator with period (runtime only)'
-
 
 RuntimeOnlyExamples.params = ['numpy', 'cython', 'cpp_standalone']
 RuntimeOnlyExamples.param_names = ['target']

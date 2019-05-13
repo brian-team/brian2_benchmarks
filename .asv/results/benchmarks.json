@@ -265,44 +265,6 @@
         "unit": "seconds", 
         "version": "cf3d2b6b81a2b66495bf991d0fea6e9d946f415f775b6c8b26f96ea299a727d1"
     }, 
-    "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": {
-        "code": "class RuntimeOnlyExamples:\n    def track_SpikeGenerator(self, target):\n        '''\n        SpikeGeneratorGroup (only runtime, excluding compilation)\n        '''\n        times = []\n        for _ in range(3):\n            device.reinit()\n            device.activate()\n            start_scope()\n            # 10 Synchronous bursts of two separate subgroups\n            s_gen = SpikeGeneratorGroup(100, np.tile(np.arange(100), 100),\n                                        np.repeat(np.arange(200)*0.5, 50)*100*ms)\n    \n            run(10 * second)\n            times.append(device._last_run_time)\n        return np.median(times)\n\n    def setup(self, target):\n        codegen_setup(target)", 
-        "name": "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator", 
-        "param_names": [
-            "target"
-        ], 
-        "params": [
-            [
-                "'numpy'", 
-                "'cython'", 
-                "'cpp_standalone'"
-            ]
-        ], 
-        "pretty_name": "SpikeGenerator (runtime only)", 
-        "timeout": 60.0, 
-        "type": "track", 
-        "unit": "seconds", 
-        "version": "f7a359ea151e318da3e6d522e2e2b8076d253fd5b73b3fd0cf9d5be3debb85ca"
-    }, 
-    "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": {
-        "code": "class RuntimeOnlyExamples:\n    def track_SpikeGenerator_with_period(self, target):\n        '''\n        SpikeGeneratorGroup with period argument (only runtime, excluding compilation)\n        '''\n        times = []\n        for _ in range(3):\n            device.reinit()\n            device.activate()\n            start_scope()\n            # 10 Synchronous bursts of two separate subgroups\n            s_gen = SpikeGeneratorGroup(100, np.arange(100),\n                                        np.repeat([0, 50], 50)*ms,\n                                        period=100*ms)\n    \n            run(10 * second)\n            times.append(device._last_run_time)\n        return np.median(times)\n\n    def setup(self, target):\n        codegen_setup(target)", 
-        "name": "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period", 
-        "param_names": [
-            "target"
-        ], 
-        "params": [
-            [
-                "'numpy'", 
-                "'cython'", 
-                "'cpp_standalone'"
-            ]
-        ], 
-        "pretty_name": "SpikeGenerator with period (runtime only)", 
-        "timeout": 60.0, 
-        "type": "track", 
-        "unit": "seconds", 
-        "version": "31f0d842863b709555c19c35afb78009bf62a7ecd0945d8b64e1b56dd476736e"
-    }, 
     "benchmarks.UnitBenchmarks.time_calculations_with_units": {
         "code": "class UnitBenchmarks:\n    def time_calculations_with_units(self):\n        rmse = np.sqrt(np.mean(self.ar_with_units**2))\n\n    def setup(self):\n        self.ar = np.random.randn(1000000)\n        self.ar_with_units = self.ar * mV", 
         "min_run_count": 2, 

@@ -1,12 +1,8 @@
 {
+    "benchmark_version": {}, 
     "commit_hash": "5710df1fd46bd0a50251bb696762d88ea488afc1", 
     "date": 1479031241000, 
-    "ended_at": {
-        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535053988000, 
-        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535054081000, 
-        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535054165000, 
-        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 1528275567000
-    }, 
+    "ended_at": {}, 
     "env_name": "conda-py3.6-cython", 
     "params": {
         "arch": "x86_64", 
@@ -22,56 +18,7 @@
     "requirements": {
         "cython": ""
     }, 
-    "results": {
-        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": {
-            "params": [
-                [
-                    "'numpy'", 
-                    "'cython'", 
-                    "'cpp_standalone'"
-                ]
-            ], 
-            "result": [
-                42.80810809135437, 
-                10.517799854278564, 
-                7.13906
-            ]
-        }, 
-        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": {
-            "params": [
-                [
-                    "'numpy'", 
-                    "'cython'", 
-                    "'cpp_standalone'"
-                ]
-            ], 
-            "result": [
-                2.463892698287964, 
-                1.0923223495483398, 
-                0.216474
-            ]
-        }, 
-        "benchmarks.RuntimeOnlyExamples.track_STDP_example": {
-            "params": [
-                [
-                    "'numpy'", 
-                    "'cython'", 
-                    "'cpp_standalone'"
-                ]
-            ], 
-            "result": [
-                2.254831552505493, 
-                1.3541364669799805, 
-                0.195448
-            ]
-        }, 
-        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 0.0019441445099999996
-    }, 
-    "started_at": {
-        "benchmarks.RuntimeOnlyExamples.track_COBAHH_example": 1535053744000, 
-        "benchmarks.RuntimeOnlyExamples.track_CUBA_example": 1535053988000, 
-        "benchmarks.RuntimeOnlyExamples.track_STDP_example": 1535054081000, 
-        "benchmarks.UnitBenchmarks.time_unit_removal_by_division": 1528275559000
-    }, 
+    "results": {}, 
+    "started_at": {}, 
     "version": 1
 }

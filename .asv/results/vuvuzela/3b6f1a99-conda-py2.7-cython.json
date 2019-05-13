@@ -1,14 +1,8 @@
 {
-    "benchmark_version": {
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": "f7a359ea151e318da3e6d522e2e2b8076d253fd5b73b3fd0cf9d5be3debb85ca", 
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": "31f0d842863b709555c19c35afb78009bf62a7ecd0945d8b64e1b56dd476736e"
-    }, 
+    "benchmark_version": {}, 
     "commit_hash": "3b6f1a9944a1ff5f9194e9e9a3e3d1d4e476cd78", 
     "date": 1349970504000, 
-    "ended_at": {
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": 1546970804408, 
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": 1546970804408
-    }, 
+    "ended_at": {}, 
     "env_name": "conda-py2.7-cython", 
     "params": {
         "arch": "x86_64", 
@@ -24,31 +18,7 @@
     "requirements": {
         "cython": ""
     }, 
-    "results": {
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": {
-            "params": [
-                [
-                    "'numpy'", 
-                    "'cython'", 
-                    "'cpp_standalone'"
-                ]
-            ], 
-            "result": null
-        }, 
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": {
-            "params": [
-                [
-                    "'numpy'", 
-                    "'cython'", 
-                    "'cpp_standalone'"
-                ]
-            ], 
-            "result": null
-        }
-    }, 
-    "started_at": {
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator": 1546970804408, 
-        "benchmarks.RuntimeOnlyExamples.track_SpikeGenerator_with_period": 1546970804408
-    }, 
+    "results": {}, 
+    "started_at": {}, 
     "version": 1
 }
